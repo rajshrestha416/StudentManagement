@@ -11,24 +11,11 @@ class ViewStudentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityViewStudentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityViewStudentBinding.inflate(layoutInflater)
+        binding = ActivityViewStudentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-refersh();
-
-    }
-    fun refersh(){
         val adapter = StudentAdapter(this)
         binding.rvStudents.layoutManager = LinearLayoutManager(this@ViewStudentActivity)
         binding.rvStudents.adapter = adapter
     }
 
-//    override fun onBackPressed() {
-//        super.onBackPressed()
-//        refersh();
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        refersh();
-//    }
 }

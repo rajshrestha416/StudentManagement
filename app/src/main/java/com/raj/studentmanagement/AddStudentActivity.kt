@@ -1,6 +1,7 @@
 package com.raj.studentmanagement
 
 import android.R
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -62,6 +63,7 @@ class AddStudentActivity : AppCompatActivity() {
                     position
                 )
                 binding.btnAddStudent.text = "ADD STUDENT"
+                binding.textView.text = "ADD STUDENT"
                 Toast.makeText(this, "Student Added", Toast.LENGTH_LONG).show()
                 clear()
                 startActivity(Intent(this,ViewStudentActivity::class.java))
@@ -74,6 +76,7 @@ class AddStudentActivity : AppCompatActivity() {
         val studentList = database.returnStudent()
 //        val student = database.editStudent(position)
         binding.btnAddStudent.text = "UPDATE"
+        binding.textView.text = "Edit Student Details"
         binding.etName.setText(studentList[position].studentName)
         binding.etAge.setText(studentList[position].studentAge.toString())
         binding.etAddress.setText(studentList[position].studentAddress)
@@ -88,10 +91,10 @@ class AddStudentActivity : AppCompatActivity() {
     }
 
     private fun clear() {
-        binding.etName.setText("")
-        binding.etAge.setText("")
-        binding.etAddress.setText("")
-        binding.etImageUrl.setText("")
+        binding.etName.text.clear()
+        binding.etAge.text.clear()
+        binding.etAddress.text.clear()
+        binding.etImageUrl.text.clear()
         binding.radioGroup.clearCheck()
         binding.rdoMale.isChecked = true
         binding.etName.requestFocus()

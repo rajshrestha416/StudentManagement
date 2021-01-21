@@ -10,17 +10,18 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.raj.studentmanagement.Model.Admin
 import com.raj.studentmanagement.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var adminlogged : Admin
     private val adminList = Database().returnAdmin()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        supportActionBar?.hide();
         setContentView(binding.root)
-
 
         binding.btnLogin.setOnClickListener {
             if (validate()) {
@@ -28,17 +29,21 @@ class MainActivity : AppCompatActivity() {
                     if (admin.username == binding.etUsername.text.toString()
                         && admin.password == binding.etPassword.text.toString()
                     ) {
-                        Intent(this, DashboardActivity::class.java).also {
-                            Toast.makeText(
-                                this,
-                                "Welcome ${admin.firstName} ${admin.lastName}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            startActivity(it)
-                        }
-                    } else {
-                        binding.etUsername.error = "Username or Password is incorrect"
+                       adminlogged = admin
                     }
+                }
+                if (adminlogged != null){
+                    Intent(this, DashboardActivity::class.java).also {
+                        Toast.makeText(
+                            this,
+                            "Welcome ${adminlogged.firstName} ${adminlogged.lastName}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        startActivity(it)
+                    }
+                }
+                else{
+                    binding.etUsername.error = "Username or password incorrect"
                 }
             }
 

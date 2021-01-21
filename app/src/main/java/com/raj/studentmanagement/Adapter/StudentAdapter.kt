@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.raj.studentmanagement.AddStudentActivity
@@ -54,10 +55,26 @@ class StudentAdapter(
         Glide.with(context).load(student.profileImage).into(holder.imgProfile)
 
         holder.btnDelete.setOnClickListener{
-            database.deleteStudent(student)
-            notifyItemRemoved(position)
-            Toast.makeText(context, "Student Removed", Toast.LENGTH_LONG).show()
+            var builder = AlertDialog.Builder(context)
+            builder.setTitle("Add")
+            builder.setMessage("Do you want to Add? ")
+            builder.setIcon(R.drawable.ic_launcher_foreground)
+
+            builder.setPositiveButton("Yes") { _,_ ->
+                database.deleteStudent(student)
+                notifyItemRemoved(position)
+                Toast.makeText(context, "Student Removed", Toast.LENGTH_LONG).show()
+            }
+
+            builder.setNegativeButton("No"){ _,_ ->
+                Toast.makeText(context, "Action Canceled", Toast.LENGTH_SHORT).show()
+            }
+
+            var alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
+
         holder.btnEdit.setOnClickListener{
             Intent(context, AddStudentActivity::class.java).also {
                 it.putExtra("position",position)
@@ -71,6 +88,5 @@ class StudentAdapter(
     override fun getItemCount(): Int {
         return studentList.size
     }
-
 }
 

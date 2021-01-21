@@ -1,5 +1,6 @@
 package com.raj.studentmanagement
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -25,7 +26,8 @@ class RegisterActivity : AppCompatActivity() {
                         binding.etOldpass.text.toString()
                     )
                 )
-                Toast.makeText(this, "Account Registerd", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Account Registerd", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this,MainActivity::class.java))
                 clear()
             }
 
